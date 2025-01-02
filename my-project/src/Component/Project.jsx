@@ -11,7 +11,7 @@ const Project = () => {
   useEffect(() => {
     const getItem = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/");
+        const response = await axios.get("https://portfolio-2-7q5d.onrender.com");
        
         setProject(response.data); // Update the state with API data
       } catch (error) {

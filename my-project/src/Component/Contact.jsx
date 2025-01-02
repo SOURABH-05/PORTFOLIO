@@ -19,7 +19,7 @@ const Contact = () => {
     setLoading(true); // Start loading
 
     try {
-      const { data } = await axios.post("http://localhost:3000/mail", {
+      const { data } = await axios.post("https://portfolio-2-7q5d.onrender.com/mail", {
         name,
         email,
         message,
