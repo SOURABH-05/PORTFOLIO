@@ -2,6 +2,7 @@ import React from 'react';
 import { HiOutlineDownload } from "react-icons/hi";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import CV from "../assets/Sourabh's CV_compressed.pdf"
 
 import img from "../assets/IMG_7714.png"
 import { motion } from "framer-motion"
@@ -52,9 +53,12 @@ const Hero = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.4, delay: 0.3 }}
             className='px-3 py-2 flex items-center gap-2 bg-blue-500 rounded-md text-white hover:bg-blue-600 shadow-blue-500 border-2 border-blue-400 transition-all shadow-[0_0_2px_#fff,0_0_2px_#fff,0_0_5px_#33CCCC,0_0_15px_#33CCCC,0_0_30px_#33CCCC]'>
-            <HiOutlineDownload />  Download CV
+              
+            <HiOutlineDownload /> 
+          <a href={CV} download="resume">
+             Download CV
+          </a>
           </motion.button>
-
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
