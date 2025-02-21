@@ -2,7 +2,7 @@ import React from 'react';
 import { HiOutlineDownload } from "react-icons/hi";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
-import CV from "../assets/cvs_sompressed.pdf"
+import CV from "../assets/cvs_compressed.pdf"
 
 import img from "../assets/IMG_7714.png"
 import { motion } from "framer-motion"
