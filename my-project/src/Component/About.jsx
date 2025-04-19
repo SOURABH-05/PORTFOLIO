@@ -125,7 +125,7 @@ const About = () => {
                   </div>
                   <div className='relative border border-blue-300 flex items-center gap-1 w-max px-2 py-1 rounded-lg shadow-md shadow-blue-500 hover:bg-gradient-to-r hover:from-teal-400 hover:via-blue-500 hover:to-purple-600 hover:text-white hover:shadow-xl hover:scale-105 hover:border-transparent transition-all duration-300'>
                     <img src={Solving} alt="Tailwind CSS" className='w-6 h-6 rounded-full ' />
-                    <p className='font-semibold text-white text-xs'>Probleum Solving</p>
+                    <p className='font-semibold text-white text-xs'>Problem Solving</p>
                   </div>
                   <div className='relative border border-blue-300 flex items-center gap-1 w-max px-2 py-1 rounded-lg shadow-md shadow-blue-500 hover:bg-gradient-to-r hover:from-yellow-400 hover:via-orange-500 hover:to-red-500 hover:text-white hover:shadow-xl hover:scale-105 hover:border-transparent transition-all duration-300'>
                     <img src={ml} alt="Javascript" className='w-6 h-6' />
