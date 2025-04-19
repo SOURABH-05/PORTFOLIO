@@ -120,7 +120,7 @@ const Contact = () => {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="mt-1 w-full p-3 border bg-gray-950 text-gray-300 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
                   placeholder="Your Name"
                   required
                 />
@@ -134,7 +134,7 @@ const Contact = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 w-full p-3 border bg-gray-950 text-gray-300 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
                   placeholder="Your Email"
                   required
                 />
@@ -148,7 +148,7 @@ const Contact = () => {
                   rows={6}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="mt-1 w-full p-3 border bg-gray-950 text-gray-300 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
                   placeholder="Your Message"
                   required
                 ></textarea>
