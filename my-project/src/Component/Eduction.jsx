@@ -24,7 +24,7 @@ const data = [
   },
   {
     title: "Bachelor of Technology (B.Tech)",
-    subtitle: "RGIPT",
+    subtitle: "RGIPT (An Institute of National Importance in the line of IITs)",
     year: "2022 - present",
     description:"I am currently pursuing BTech to become a skilled professional and build a strong foundation in technology & development.",
     icon: "🎓",
