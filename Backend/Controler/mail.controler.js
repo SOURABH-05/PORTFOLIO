@@ -2,9 +2,11 @@ import { sendMail } from "../SendMail/sendmail.js";
 
 export const sendGmail = async (req, res) => {
   const { name, email, message } = req.body;
+  console.log("Incoming mail request:", { name, email, message });
 
   // Validate request body
   if (!name || !email || !message) {
+    console.warn("Validation failed: Missing fields");
     return res.status(400).json({
       type: "error",
       message: "Missing required fields: name, email, and message are all required.",
@@ -27,12 +29,15 @@ export const sendGmail = async (req, res) => {
       message: "Message sent successfully!",
     });
   } catch (error) {
+    console.error("Critical error in sendGmail controller:", error.message);
 
     // Respond with error
     return res.status(500).json({
       type: "error",
-      message: "Message not sent. Please try again later.",
-      error: error.message, // Include error details for debugging
+      message: error.message.includes("Failed to send email") 
+        ? "Email service error. Check your Gmail App Password." 
+        : "Internal server error. Please try again later.",
+      error: error.message,
     });
   }
 };

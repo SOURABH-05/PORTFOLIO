@@ -3,10 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
-
-import mail from "../assets/email.png";
-import phone from "../assets/phone-call.png";
-import location from "../assets/gps.png";
+import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane } from "react-icons/fa";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -16,155 +13,139 @@ const Contact = () => {
 
   const sendMail = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
+
+    const apiUrl = window.location.hostname === "localhost" 
+      ? "http://localhost:3000/mail" 
+      : "https://portfolio-2-7q5d.onrender.com/mail";
 
     try {
-      const { data } = await axios.post("https://portfolio-2-7q5d.onrender.com/mail", {
+      const response = await axios.post(apiUrl, {
         name,
         email,
         message,
+      }, {
+        timeout: 10000 // 10 second timeout
       });
-
+      
+      const { data } = response;
       toast.success(data.message);
       setName("");
       setEmail("");
       setMessage("");
     } catch (error) {
-
       toast.error("Failed to send the message. Please try again later.");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
+  const contactInfo = [
+    { icon: <FaEnvelope />, title: "Email", value: "s2447491@gmail.com" },
+    { icon: <FaPhoneAlt />, title: "Phone", value: "+91 8607699421" },
+    { icon: <FaMapMarkerAlt />, title: "Location", value: "Karnal, Haryana, India" },
+  ];
+
   return (
-    <section id="contact" className="bg-gray-950 py-16 px-6">
+    <section id="contact" className="py-32 px-6 relative z-10">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl font-bold text-center text-gray-300 mb-12">
-          Contact Me
-        </h2>
-        <div className="grid lg:grid-cols-2 gap-10">
-          {/* Contact Info */}
-          <div className="grid gap-10 lg:gap-10 p-6 lg:p-12 rounded-lg shadow-xl">
-            <h1 className="text-3xl lg:text-4xl font-bold text-gray-300 text-center lg:text-left">
-              Let's Talk
-            </h1>
-            <div className="grid gap-6">
-              {/* Email Section */}
-              <motion.div
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="flex items-center gap-4 lg:gap-6 bg-gray-800 p-6 lg:p-[40px] hover:scale-105 text-white rounded-xl shadow-lg transition-transform hover:-translate-y-3 hover:shadow-blue-500/60"
-              >
-                <div className="text-3xl lg:text-4xl flex items-center justify-center w-12 lg:w-16 h-12 lg:h-16 bg-blue-600 rounded-full">
-                  <img src={mail} alt="mail" />
-                </div>
-                <div>
-                  <h2 className="text-xl lg:text-2xl font-semibold">Email</h2>
-                  <p className="text-sm lg:text-lg opacity-50">s2447491@gmail.com</p>
-                </div>
-              </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20 text-center md:text-left"
+        >
+          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter text-white">Connect.</h2>
+          <p className="text-xl text-slate-400">Let's build something extraordinary.</p>
+        </motion.div>
 
-              {/* Phone Section */}
+        <div className="grid lg:grid-cols-12 gap-8">
+          {/* Info Side */}
+          <div className="lg:col-span-5 space-y-6">
+            {contactInfo.map((info, index) => (
               <motion.div
-                initial={{ opacity: 0, x: -100 }}
+                key={index}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1.2, delay: 0.3 }}
-                className="flex items-center gap-4 lg:gap-6 bg-gray-800 p-6 lg:p-[40px] hover:scale-105 text-white rounded-xl shadow-lg transition-transform hover:-translate-y-3 hover:shadow-blue-500/60"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bento-card p-6 flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left group"
               >
-                <div className="text-3xl lg:text-4xl flex items-center justify-center w-12 lg:w-16 h-12 lg:h-16 bg-green-600 rounded-full">
-                  <img src={phone} alt="phone" />
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl text-slate-300 group-hover:text-cyan-400 group-hover:bg-cyan-900/20 transition-all duration-300 group-hover:scale-110">
+                  {info.icon}
                 </div>
                 <div>
-                  <h2 className="text-xl lg:text-2xl font-semibold">Phone</h2>
-                  <p className="text-sm lg:text-lg opacity-50">+91 8607699421</p>
+                  <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-slate-500 mb-1">{info.title}</h4>
+                  <p className="text-lg font-semibold text-white">{info.value}</p>
                 </div>
               </motion.div>
-
-              {/* Location Section */}
-              <motion.div
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1.4, delay: 0.4 }}
-                className="flex items-center gap-4 lg:gap-6 bg-gray-800 p-6 lg:p-[40px] hover:scale-105 text-white rounded-xl shadow-lg transition-transform hover:-translate-y-3 hover:shadow-blue-500/60"
-              >
-                <div className="text-3xl lg:text-4xl flex items-center justify-center w-12 lg:w-16 h-12 lg:h-16 bg-red-600 rounded-full">
-                  <img src={location} alt="location" />
-                </div>
-                <div>
-                  <h2 className="text-xl lg:text-2xl font-semibold">Location</h2>
-                  <p className="text-sm lg:text-lg opacity-50">Karnal, Haryana, India</p>
-                </div>
-              </motion.div>
-            </div>
+            ))}
           </div>
 
-          {/* Contact Form */}
+          {/* Form Side */}
           <motion.div
-            initial={{ opacity: 0, x: 100 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-            className="bg-gray-900 rounded-lg shadow-[0px_0px_20px_10px_rgba(0,0,0,0.3)] shadow-blue-500 p-6 lg:p-8 mt-9"
+            viewport={{ once: true }}
+            className="lg:col-span-7"
           >
-            <h3 className="text-3xl lg:text-4xl font-bold text-gray-300 text-center lg:text-left">
-              Get in Touch
-            </h3>
-            <form className="space-y-4 lg:space-y-6 mt-6" onSubmit={sendMail}>
-              <div>
-                <label htmlFor="name" className="block text-lg font-medium text-gray-300">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
-                  placeholder="Your Name"
-                  required
-                />
+            <form onSubmit={sendMail} className="bento-card p-8 md:p-12 space-y-8 bg-black/40">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="relative group">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    id="name"
+                    className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-cyan-400 peer transition-colors"
+                    placeholder="Name"
+                  />
+                  <label htmlFor="name" className="absolute left-0 -top-4 text-xs font-bold uppercase tracking-wider text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-400 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-cyan-400">
+                    Your Name
+                  </label>
+                </div>
+                <div className="relative group">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    id="email"
+                    className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-cyan-400 peer transition-colors"
+                    placeholder="Email"
+                  />
+                  <label htmlFor="email" className="absolute left-0 -top-4 text-xs font-bold uppercase tracking-wider text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-400 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-cyan-400">
+                    Your Email
+                  </label>
+                </div>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-lg font-medium text-gray-300">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-lg font-medium text-gray-300">
-                  Message
-                </label>
+              <div className="relative group pt-4">
                 <textarea
-                  id="message"
-                  rows={6}
+                  rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="mt-2 w-full p-3 rounded-2xl border border-blue-500 bg-gray-900/70 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)] backdrop-blur-sm transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 focus:shadow-[0_0_15px_4px_rgba(59,130,246,0.8)] hover:shadow-[0_0_12px_3px_rgba(59,130,246,0.7)]"
-                  placeholder="Your Message"
                   required
-                ></textarea>
+                  id="message"
+                  className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-transparent focus:outline-none focus:border-cyan-400 peer transition-colors resize-none"
+                  placeholder="Message"
+                />
+                <label htmlFor="message" className="absolute left-0 -top-0 text-xs font-bold uppercase tracking-wider text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-6 peer-placeholder-shown:text-slate-400 peer-focus:-top-0 peer-focus:text-xs peer-focus:text-cyan-400">
+                  Your Message
+                </label>
               </div>
+              
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 rounded-lg shadow-md flex justify-center items-center gap-2 ${loading
-                    ? "bg-blue-400 cursor-not-allowed text-gray-300"
-                    : "bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-                  }`}
+                className="group relative w-full overflow-hidden rounded-2xl bg-white px-8 py-4 text-black font-bold uppercase tracking-widest text-sm transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {loading && <ClipLoader size={20} color="white" />}
-                {loading ? "Sending..." : "Send Message"}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative flex justify-center items-center gap-3 transition-colors duration-300 group-hover:text-white">
+                  {loading ? <ClipLoader size={18} color="currentColor" /> : "Initiate Transmission"}
+                  {!loading && <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                </span>
               </button>
-
             </form>
           </motion.div>
         </div>

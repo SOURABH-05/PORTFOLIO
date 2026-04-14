@@ -1,104 +1,130 @@
 import React, { useState, useEffect } from 'react';
-import Digital from '../assets/IMG_77146.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import axios from "axios";
+import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useMagnetic } from '../hooks/useMagnetic';
+
+const MagneticButton = ({ children, href, className }) => {
+  const { ref, style } = useMagnetic(0.3, 100);
+  return (
+    <div ref={ref} style={style}>
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
+        {children}
+      </a>
+    </div>
+  );
+};
 
 const Project = () => {
-  const [project, setProject] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const getItem = async () => {
+    const fetchProjects = async () => {
       try {
         const response = await axios.get("https://portfolio-2-7q5d.onrender.com");
-       
-        setProject(response.data); // Update the state with API data
+        setProjects(response.data);
       } catch (error) {
-    
+        console.error("Error fetching projects:", error);
       }
     };
-    getItem();
+    fetchProjects();
   }, []);
 
-  // Slick carousel settings
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    speed: 800,
+    slidesToShow: 2,
+    slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+    cssEase: "cubic-bezier(0.87, 0, 0.13, 1)",
     responsive: [
       {
         breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
+        settings: { slidesToShow: 1 },
       },
     ],
   };
 
   return (
-    <section id="projects" className="bg-gradient-to-r bg-gray-900 py-16 px-6">
+    <section id="projects" className="py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl font-bold text-center text-gray-300 mb-12">
-          Projects
-        </h2>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8"
+        >
+          <div>
+            <h2 className="text-5xl md:text-7xl font-black mb-2 tracking-tighter text-white">Work.</h2>
+            <p className="text-xl text-slate-400">Selected featured projects.</p>
+          </div>
+          <p className="text-sm text-slate-500 uppercase tracking-[0.2em] font-semibold">
+            {projects.length} Initiatives deployed
+          </p>
+        </motion.div>
 
-        <div className="h-300 overflow-hidden">
+        <div className="project-slider-premium -mx-4">
           <Slider {...settings}>
-            {project.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gray-950 rounded-lg shadow-lg overflow-hidden mt-8 mx-4 max-w-[26rem] ml-1 mt-1 transition-transform duration-300 hover:shadow-3xl hover:shadow-blue-500"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-[400px] object-cover px-3 pt-3 rounded-2xl transition-all duration-300"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-300 mb-2">{item.title}</h3>
-                  <p className="text-gray-400 mb-4 text-sm">{item.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {item.techStack.map((tech, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-gray-900 text-gray-300 text-sm font-medium px-3 py-1 rounded-full"
-                      >
-                        {tech}
-                      </div>
-                    ))}
+            {projects.map((item, index) => (
+              <div key={index} className="px-4 pb-12 outline-none">
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  className="bento-card group flex flex-col h-[600px] outline-none cursor-grab active:cursor-grabbing"
+                >
+                  <div className="relative h-[65%] w-full overflow-hidden border-b border-white/5 bg-black/50">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+                    />
+                    
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+                    
+                    <div className="absolute top-6 right-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                      {item.link && (
+                        <MagneticButton 
+                          href={item.link} 
+                          className="w-12 h-12 flex items-center justify-center rounded-full glass-card hover:bg-white hover:text-black transition-colors"
+                        >
+                          <FaExternalLinkAlt size={16} />
+                        </MagneticButton>
+                      )}
+                      {item.github && (
+                        <MagneticButton 
+                          href={item.github} 
+                          className="w-12 h-12 flex items-center justify-center rounded-full glass-card hover:bg-white hover:text-black transition-colors"
+                        >
+                          <FaGithub size={18} />
+                        </MagneticButton>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex gap-3">
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition-colors text-xs"
-                    >
-                      View Project
-                    </a>
-                    <a
-                      href={item.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex gap-2 items-center bg-gray-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-900 transition-colors text-xs"
-                    >
-                      View Code
-                    </a>
+
+                  <div className="p-8 lg:p-10 flex flex-col flex-grow bg-gradient-to-br from-white/[0.03] to-transparent">
+                    <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{item.title}</h3>
+                    <p className="text-slate-400 mb-8 text-sm line-clamp-2 leading-relaxed flex-grow">
+                      {item.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {item.techStack.map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-white/5 text-slate-300 text-xs font-semibold px-4 py-2 rounded-full border border-white/10 uppercase tracking-wider"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             ))}
           </Slider>

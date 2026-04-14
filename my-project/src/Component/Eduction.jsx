@@ -1,13 +1,37 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const data = [
+  {
+    title: "Bachelor of Technology",
+    subtitle: "RGIPT Amethi",
+    year: "2022 - present",
+    description: "Currently pursuing B.Tech at an Institute of National Importance, building a strong engineering foundation.",
+    icon: "💻",
+    highlight: true,
+  },
+  {
+    title: "JEE Advanced",
+    subtitle: "Qualified",
+    year: "2022",
+    description: "Achieved a top 1.5% rank in JEE Advanced, one of the toughest entrance exams in India.",
+    icon: "🏆",
+  },
+  {
+    title: "Higher Secondary (12th)",
+    subtitle: "S.D. Adarsh Public School",
+    year: "2022",
+    description: "Completed class 12 with 80% marks, focusing on Physics, Chemistry, and Mathematics.",
+    icon: "🎓",
+  },
   {
     title: "Secondary (10th)",
     subtitle: "S.D. Adarsh Public School",
     year: "2020",
-    description: "I completed my 10th Class with Good Grades, marking an important milestone in my educational journey.",
+    description: "Completed secondary education with strong foundations in science and mathematics.",
     icon: "🎓",
   },
+<<<<<<< HEAD
   {
     title: "Higher Secondary (11th-12th)",
     subtitle: "S.D. Adarsh Public School",
@@ -30,27 +54,53 @@ const data = [
     icon: "🎓",
   },
  
+=======
+>>>>>>> 3173596 (updated project)
 ];
 
 const Education = () => {
   return (
-    <section id="education" className="bg-gradient-to-r bg-gray-950 py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center text-gray-300 mb-12">
-          Education & Achievements
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+    <section id="education" className="py-32 px-6 relative z-10">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-20 text-center"
+        >
+          <h2 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter text-white">Timeline.</h2>
+          <p className="text-xl text-slate-400">The foundation of knowledge.</p>
+        </motion.div>
+
+        <div className="relative border-l border-white/10 md:ml-6 space-y-12 pb-12">
           {data.map((item, index) => (
-            <div
+            <motion.div
               key={index}
-              className="flex flex-col items-start bg-gray-900 p-6  rounded-xl shadow-lg transition-all duration-500 transform hover:scale-105 hover:-translate-y-3 hover:shadow-lg hover:shadow-blue-500/60"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="relative pl-8 md:pl-16 group"
             >
-              <div className="text-4xl mb-4 text-blue-500">{item.icon}</div>
-              <h4 className="text-xl font-bold text-gray-200">{item.title}</h4>
-              <p className="text-gray-300">{item.subtitle}</p>
-              <p className="text-gray-300 text-sm italic">{item.year}</p>
-              <p className="text-gray-300 mt-2">{item.description}</p>
-            </div>
+              {/* Timeline dot */}
+              <div className={`absolute top-8 left-[-9px] w-4 h-4 rounded-full border-4 border-black ${item.highlight ? 'bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.6)]' : 'bg-slate-500'} group-hover:scale-150 transition-transform duration-300`} />
+              
+              <div className={`bento-card p-8 md:p-10 ${item.highlight ? 'border-cyan-500/30 shadow-[0_0_30px_rgba(34,211,238,0.1)]' : ''}`}>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                  <div>
+                    <h4 className="text-2xl font-bold text-white mb-2">{item.title}</h4>
+                    <p className="text-sm uppercase tracking-widest text-slate-400 font-semibold">{item.subtitle}</p>
+                  </div>
+                  <span className="shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-bold text-slate-300">
+                    {item.year}
+                  </span>
+                </div>
+                
+                <p className="text-slate-400 leading-relaxed text-sm md:text-base border-l-2 border-white/10 pl-4 py-1">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -59,5 +109,3 @@ const Education = () => {
 };
 
 export default Education;
-
-
