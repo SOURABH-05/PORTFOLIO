@@ -31,31 +31,6 @@ const data = [
     description: "Completed secondary education with strong foundations in science and mathematics.",
     icon: "🎓",
   },
-<<<<<<< HEAD
-  {
-    title: "Higher Secondary (11th-12th)",
-    subtitle: "S.D. Adarsh Public School",
-    year: "2022",
-    description: "I completed my class 12 in 2022 with an 80% grade, reflecting my hard work and dedication throughout my studies.",
-    icon: "🎓",
-  },
-  {
-    title: "EXAM",
-    subtitle: "JEE advance Qualify",
-    year: "2022",
-    description: "In 2022, I achieved a top 1.5% rank in JEE Advanced, reflecting my dedication and hard work in mastering complex concepts. ",
-    icon: "📃",
-  },
-  {
-    title: "Bachelor of Technology (B.Tech)",
-    subtitle: "RGIPT (An Institute of National Importance in the line of IITs)",
-    year: "2022 - present",
-    description:"I am currently pursuing BTech to become a skilled professional and build a strong foundation in technology & development.",
-    icon: "🎓",
-  },
- 
-=======
->>>>>>> 3173596 (updated project)
 ];
 
 const Education = () => {
